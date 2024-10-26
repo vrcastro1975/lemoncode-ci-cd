@@ -1,13 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Verify Docker') {
-        steps {
-            sh 'docker --version'
-        }
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/Lemoncode/bootcamp-devops-lemoncode.git', branch: 'master'
+            }
+        }
+        stage('Verify Docker') {
+            steps {
+                sh 'docker --version'
             }
         }
         stage('Compile') {
