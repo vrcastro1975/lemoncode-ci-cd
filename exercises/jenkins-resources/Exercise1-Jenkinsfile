@@ -14,7 +14,7 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
-                    docker.image('gradle:6.6.1-jdk17').inside {
+                    docker.image('gradle:6.6.1-jre14-openj9').inside {
                         sh 'chmod +x /workspace/03-cd/exercises/jenkins-resources/calculator/gradlew'
                         sh '/workspace/03-cd/exercises/jenkins-resources/calculator/gradlew compileJava'
                     }
@@ -24,7 +24,7 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
-                    docker.image('gradle:6.6.1-jdk17').inside {
+                    docker.image('gradle:6.6.1-jre14-openj9').inside {
                         sh '/workspace/03-cd/exercises/jenkins-resources/calculator/gradlew test'
                     }
                 }
