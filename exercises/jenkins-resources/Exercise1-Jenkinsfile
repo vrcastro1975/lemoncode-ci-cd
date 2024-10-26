@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
-    }
     stages {
         stage('Checkout') {
             steps {
@@ -12,16 +8,20 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                dir('03-cd/exercises/jenkins-resources/calculator') {
-                    sh 'chmod +x gradlew'
-                    sh './gradlew compileJava'
+                script {
+                    docker.image('gradle:6.6.1-jdk17').inside {
+                        sh 'chmod +x /workspace/03-cd/exercises/jenkins-resources/calculator/gradlew'
+                        sh '/workspace/03-cd/exercises/jenkins-resources/calculator/gradlew compileJava'
+                    }
                 }
             }
         }
         stage('Unit Tests') {
             steps {
-                dir('03-cd/exercises/jenkins-resources/calculator') {
-                    sh './gradlew test'
+                script {
+                    docker.image('gradle:6.6.1-jdk17').inside {
+                        sh '/workspace/03-cd/exercises/jenkins-resources/calculator/gradlew test'
+                    }
                 }
             }
         }
