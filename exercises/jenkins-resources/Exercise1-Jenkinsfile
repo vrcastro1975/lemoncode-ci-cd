@@ -3,19 +3,18 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/Lemoncode/bootcamp-devops-lemoncode.git', branch: 'main'
+                git url: 'https://github.com/Lemoncode/bootcamp-devops-lemoncode.git', branch: 'master'
             }
         }
         stage('Compile') {
             steps {
-                sh 'cd calculator'
-                sh 'chmod +x gradlew'
-                sh './gradlew compileJava'
+                sh 'chmod +x ./calculator/gradlew'
+                sh './calculator/gradlew compileJava'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh './gradlew test'
+                sh './calculator/gradlew test'
             }
         }
     }
