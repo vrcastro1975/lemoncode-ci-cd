@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+        docker {
+            image 'gradle:6.6.1-jre14-openj9'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Lemoncode/bootcamp-devops-lemoncode.git', branch: 'main'
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh './gradlew compileJava'
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+    }
+}
