@@ -8,13 +8,12 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                sh 'chmod +x ./calculator/gradlew'
-                sh './calculator/gradlew compileJava'
+                sh 'cd calculator && chmod +x gradlew && ./gradlew compileJava'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh './calculator/gradlew test'
+                sh 'cd calculator && ./gradlew test'
             }
         }
     }
