@@ -4,22 +4,17 @@ pipeline {
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/Lemoncode/bootcamp-devops-lemoncode.git', branch: 'master'
-                // Verificar la estructura después de clonar
-                sh 'echo "Directorio actual:"'
-                sh 'pwd'
-                sh 'echo "Archivos después del checkout:"'
-                sh 'ls -R'
             }
         }
         stage('Compile') {
             steps {
-                sh 'chmod +x ./calculator/gradlew'
-                sh './calculator/gradlew compileJava'
+                sh 'chmod +x ./03-cd/exercises/jenkins-resources/calculator/gradlew'
+                sh './03-cd/exercises/jenkins-resources/calculator/gradlew compileJava'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh './calculator/gradlew test'
+                sh './03-cd/exercises/jenkins-resources/calculator/gradlew test'
             }
         }
     }
