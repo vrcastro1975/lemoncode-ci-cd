@@ -9,6 +9,13 @@ pipeline {
                 git url: 'https://github.com/Lemoncode/bootcamp-devops-lemoncode.git', branch: 'master'
             }
         }
+        stage('Actualizar Gradle Wrapper') {
+            steps {
+                dir('./03-cd/exercises/jenkins-resources/calculator') {
+                    sh './gradlew wrapper --gradle-version 7.5'
+                }
+            }
+        }
         stage('Verificar Gradle Version') {
             steps {
                 dir('./03-cd/exercises/jenkins-resources/calculator') {
