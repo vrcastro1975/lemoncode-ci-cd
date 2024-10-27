@@ -33,4 +33,14 @@ y volvemos al navegador y la pegamos en su lugar para finalizar la instalación 
 
 Ya tenemos Jenkins funcionando en local.
 
+Ahora, selecciono "New item" y lo nombro como "ejercicio1". Selecciono "Pipeline" y clico en "OK".
 
+En Descripción pongo "Ejercicio 1 de Jenkins."
+En Pipeline / Definition escojo "Pipeline script from SCM".
+En "SCM" selecciono "Git".
+En Repository URL pongo: https://github.com/vrcastro1975/lemoncode-ci-cd.git
+En Credentials no pongo nada, porque el repositorio es público.
+En "Branch Specifier" pongo: */main
+Y en Script Path pongo: exercises/jenkins-resources/Exercise1-Jenkinsfile
+Por último, clico en "Save"
+Ahora clico en "Build Now"

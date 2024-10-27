@@ -8,13 +8,17 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                sh 'chmod +x ./03-cd/exercises/jenkins-resources/calculator/gradlew'
-                sh './03-cd/exercises/jenkins-resources/calculator/gradlew compileJava'
+                dir('03-cd/exercises/jenkins-resources/calculator') {
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew compileJava'
+                }
             }
         }
         stage('Unit Tests') {
             steps {
-                sh './03-cd/exercises/jenkins-resources/calculator/gradlew test'
+                dir('03-cd/exercises/jenkins-resources/calculator') {
+                    sh './gradlew test'
+                }
             }
         }
     }
