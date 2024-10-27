@@ -33,10 +33,13 @@ y volvemos al navegador y la pegamos en su lugar para finalizar la instalación 
 
 Ya tenemos Jenkins funcionando en local.
 
-Ahora, selecciono `"New item"` y lo nombro como `"ejercicio1"`. Selecciono "Pipeline" y clico en "OK".
+Ahora, una vez introducido nombre de usuario y contraseña y aceptada la url que va a usar Jenkins (localhost:8080), voy a instalar los plugins que marca el enunciado: `docker` y `docker-pipeline`. Para ello, me voy a `Manage Jenkins` y selecciono `Plugins`, `Available plugins`, en el buscador pongo `docker` y selecciono `Docker` y `Docker Pipeline`. Clico en el botón `Install` y, una vez instalados los plugins, clico en `Go
+back to the top page`. (Si clicamos en Restart Jenkins, el contenedor se queda bloqueado).
 
-En Descripción pongo "Ejercicio 1 de Jenkins."
-En `Pipeline / Definition` escojo `"Pipeline script from SCM"`.
+Ahora ya podemos empezar a trabajar con Jenkins. Selecciono `New item` o `Create a job` y lo nombro como `ejercicio1`. Selecciono "Pipeline" y clico en "OK".
+
+En Descripción pongo `Ejercicio 1 de Jenkins.`
+En `Pipeline / Definition` escojo `Pipeline script from SCM`.
 En "SCM" selecciono "Git".
 En Repository URL pongo: `https://github.com/vrcastro1975/lemoncode-ci-cd.git`
 En `Credentials` no pongo nada, porque el repositorio es público.
