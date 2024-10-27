@@ -25,6 +25,6 @@ RUN mkdir -p /usr/share/gradle /usr/share/gradle/ref \
   && echo "Clenaing and setting links" && rm -f /tmp/gradle.zip \
   && ln -s /usr/share/gradle/gradle-${GRADLE_VERSION} /usr/bin/gradle
 
-ENV GRADLE_VERSION 6.6.1
-ENV GRADLE_HOME /usr/bin/gradle
-ENV PATH $PATH:$GRADLE_HOME/bin
+ENV GRADLE_VERSION=6.6.1
+ENV GRADLE_HOME=/usr/bin/gradle
+ENV PATH=$PATH:$GRADLE_HOME/bin
