@@ -6,7 +6,7 @@ USER root
 RUN apt update
 
 # Gradle version
-ARG GRADLE_VERSION=7.5
+ARG GRADLE_VERSION=6.6.1
 
 # Define the URL where gradle can be downloaded
 ARG GRADLE_BASE_URL=https://services.gradle.org/distributions
