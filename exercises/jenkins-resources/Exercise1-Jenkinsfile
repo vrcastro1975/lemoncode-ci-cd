@@ -12,7 +12,7 @@ pipeline {
         stage('Actualizar Gradle Wrapper') {
             steps {
                 dir('./03-cd/exercises/jenkins-resources/calculator') {
-                    sh './gradlew wrapper --gradle-version 7.5'
+                    sh './gradlew wrapper --gradle-version 6.6.1'
                 }
             }
         }
