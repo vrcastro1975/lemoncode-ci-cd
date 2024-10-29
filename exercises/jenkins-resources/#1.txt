@@ -1,0 +1,155 @@
+Started by user victor
+Obtained exercises/jenkins-resources/Exercise1-Jenkinsfile from git https://github.com/vrcastro1975/lemoncode-ci-cd.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/ejercicio1
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/vrcastro1975/lemoncode-ci-cd.git
+ > git init /var/jenkins_home/workspace/ejercicio1 # timeout=10
+Fetching upstream changes from https://github.com/vrcastro1975/lemoncode-ci-cd.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/vrcastro1975/lemoncode-ci-cd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vrcastro1975/lemoncode-ci-cd.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 33e26dc06fd6a2a1c0f052ba46edbd355a47c8c7 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 33e26dc06fd6a2a1c0f052ba46edbd355a47c8c7 # timeout=10
+Commit message: "Testing exercise 1"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/ejercicio1/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Lemoncode/bootcamp-devops-lemoncode.git # timeout=10
+Fetching upstream changes from https://github.com/Lemoncode/bootcamp-devops-lemoncode.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/Lemoncode/bootcamp-devops-lemoncode.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 4c607b108df3e33af730794bcc10977d50c23799 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 4c607b108df3e33af730794bcc10977d50c23799 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master 4c607b108df3e33af730794bcc10977d50c23799 # timeout=10
+Commit message: "Merge pull request #219 from Lemoncode/feature/docker-compose-updates"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Actualizar Gradle Wrapper)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/ejercicio1/03-cd/exercises/jenkins-resources/calculator
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew wrapper --gradle-version 6.6.1
+Downloading https://services.gradle.org/distributions/gradle-6.6.1-bin.zip
+.........10%..........20%..........30%..........40%.........50%..........60%..........70%..........80%..........90%.........100%
+
+Welcome to Gradle 6.6.1!
+
+Here are the highlights of this release:
+ - Experimental build configuration caching
+ - Built-in conventions for handling credentials
+ - Java compilation supports --release flag
+
+For more details see https://docs.gradle.org/6.6.1/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :wrapper
+
+BUILD SUCCESSFUL in 19s
+1 actionable task: 1 executed
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Verificar Gradle Version)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/ejercicio1/03-cd/exercises/jenkins-resources/calculator
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew --version
+
+------------------------------------------------------------
+Gradle 6.6.1
+------------------------------------------------------------
+
+Build time:   2020-08-25 16:29:12 UTC
+Revision:     f2d1fb54a951d8b11d25748e4711bec8d128d7e3
+
+Kotlin:       1.3.72
+Groovy:       2.5.12
+Ant:          Apache Ant(TM) version 1.10.8 compiled on May 10 2020
+JVM:          11.0.24 (Eclipse Adoptium 11.0.24+8)
+OS:           Linux 6.8.0-47-generic amd64
+
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Compile)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/ejercicio1/03-cd/exercises/jenkins-resources/calculator
+[Pipeline] {
+[Pipeline] sh
++ chmod +x ./gradlew
+[Pipeline] sh
++ ./gradlew compileJava
+> Task :compileJava
+
+BUILD SUCCESSFUL in 8s
+1 actionable task: 1 executed
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/ejercicio1/03-cd/exercises/jenkins-resources/calculator
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew test
+> Task :compileJava UP-TO-DATE
+> Task :processResources
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+
+BUILD SUCCESSFUL in 8s
+4 actionable tasks: 3 executed, 1 up-to-date
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

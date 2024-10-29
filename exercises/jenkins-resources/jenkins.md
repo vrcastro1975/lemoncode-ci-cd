@@ -6,11 +6,18 @@ Arrancar Jenkins:
 Primero montamos la imagen a partir del Dockerfile que se nos facilita.
 Para ello, nos vamos a la carpeta:
 exercises/jenkins-resources
-y hacemos el build de la imagen:
+y haríamos el build de la imagen:
 ```bash
 docker build -t jenkins-gradle -f gradle.Dockerfile .
 ```
-Una vez que tenemos construida la imagen, ejecutamos un contenedor a partir de ella:
+Observación importante:
+Hay un problema con la imagen base de jenkins que viene en el enunciado (jenkins/jenkins:lts), que trae OpenJDK 17. La versión 6.6.1. de Gradle NO acepta Java/OpenJDK 17, por lo que obtenía un error en la pipeline. Por tanto, en lugar de usar la imagen base del enunciado, vamos a usar esta otra: `jenkins/jenkins:lts-jdk11`. En lugar de construir la imagen anterior, vamos a hacer el build de la imagen en un segundo dockerfile que hemos adaptado:
+
+```bash
+docker build -t jenkins-gradle -f gradle2.Dockerfile .
+```
+
+Una vez que tenemos construida la imagen correcta, ejecutamos un contenedor a partir de ella:
 
 ```bash
 docker run -d -p 8080:8080 -p 50000:50000 --name jenkins-gradle-local jenkins-gradle
@@ -47,3 +54,5 @@ En `"Branch Specifier"` pongo: `*/main`
 Y en `Script Path` pongo: `exercises/jenkins-resources/Exercise1-Jenkinsfile`
 Por último, clico en `"Save"`
 Ahora clico en `"Build Now"`
+
+Y, si todo ha ido bien, obtendríamos el output que dejo en el repositorio (`#1.txt`).
