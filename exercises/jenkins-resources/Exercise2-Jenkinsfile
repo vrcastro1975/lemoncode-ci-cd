@@ -2,8 +2,11 @@ pipeline {
     agent {
         docker {
             image 'gradle:6.6.1-jre14-openj9'
-            args '-v $HOME/.gradle:/root/.gradle' // Aseguramos que el caché de Gradle se mantenga entre construcciones.
+            args '-u root' // Ejecutamos como root para evitar problemas de permisos
         }
+    }
+    environment {
+        JAVA_HOME = "/opt/java/openjdk/"
     }
     stages {
         stage('Checkout') {
@@ -11,15 +14,33 @@ pipeline {
                 git url: 'https://github.com/Lemoncode/bootcamp-devops-lemoncode.git', branch: 'master'
             }
         }
+        stage('Actualizar Gradle Wrapper') {
+            steps {
+                dir('./03-cd/exercises/jenkins-resources/calculator') {
+                    sh './gradlew wrapper --gradle-version 6.6.1'
+                }
+            }
+        }
+        stage('Verificar Gradle Version') {
+            steps {
+                dir('./03-cd/exercises/jenkins-resources/calculator') {
+                    sh './gradlew --version'
+                }
+            }
+        }
         stage('Compile') {
             steps {
-                sh 'chmod +x ./03-cd/exercises/jenkins-resources/calculator/gradlew'
-                sh './03-cd/exercises/jenkins-resources/calculator/gradlew compileJava'
+                dir('./03-cd/exercises/jenkins-resources/calculator') {
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew compileJava'
+                }
             }
         }
         stage('Unit Tests') {
             steps {
-                sh './03-cd/exercises/jenkins-resources/calculator/gradlew test'
+                dir('./03-cd/exercises/jenkins-resources/calculator') {
+                    sh './gradlew test'
+                }
             }
         }
     }
