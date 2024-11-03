@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'gradle:6.6.1-jre14-openj9'
-            args '-v $HOME/.gradle:/root/.gradle' // Aseguramos que el caché de Gradle se mantenga entre construcciones.
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     stages {
@@ -13,13 +13,12 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                sh 'chmod +x ./03-cd/exercises/jenkins-resources/calculator/gradlew'
-                sh './03-cd/exercises/jenkins-resources/calculator/gradlew compileJava'
+                sh './calculator/gradlew compileJava'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh './03-cd/exercises/jenkins-resources/calculator/gradlew test'
+                sh './calculator/gradlew test'
             }
         }
     }
