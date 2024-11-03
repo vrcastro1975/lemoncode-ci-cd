@@ -114,9 +114,6 @@ Y reiniciamos el contenedor de Jenkins para que se apliquen los cambios:
 docker restart jenkins-gradle-local
 ```  
 
-
-
-
 El resto del proceso para configurar Jenkins es igual que en el ejercicio 1. Seleccionamos `New item` o `Create a job` y lo nombramos como `ejercicio2`. Seleccionamos "Pipeline" y clicamos en "OK".  
 
 En Descripción ponemos `Ejercicio 2 de Jenkins.`  
