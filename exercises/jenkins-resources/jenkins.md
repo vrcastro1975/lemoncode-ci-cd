@@ -52,7 +52,7 @@ Ahora ya podemos empezar a trabajar con Jenkins. Selecciono `New item` o `Create
 
 En Descripción pongo `Ejercicio 1 de Jenkins.`  
 En `Pipeline / Definition` escojo `Pipeline script from SCM`.  
-En "SCM" selecciono "Git".  
+En "`SCM`" selecciono "`Git`".  
 En Repository URL pongo: `https://github.com/vrcastro1975/lemoncode-ci-cd.git`  
 En `Credentials` no pongo nada, porque el repositorio es público.  
 En `"Branch Specifier"` pongo: `*/main`  
@@ -72,11 +72,23 @@ sudo usermod -aG docker jenkins
 ```  
 Luego hay que reiniciar Jenkins para que estos cambios surtan efecto.  
 
-Una vez modificada la pipeline (realmente hemos creado un nuevo Jenkinsfile y le hemos llamado `Exercise2-Jenkinsfile`) vamos a Jenkins y seleccionamos `New item` o `Create a job` y lo nombramos como `ejercicio2`. Seleccionamos "Pipeline" y clicamos en "OK".  
+Una vez modificada la pipeline (realmente hemos creado un nuevo Jenkinsfile y le hemos llamado `Exercise2-Jenkinsfile`) vamos a borrar el contenedor de Jenkins y lo vamos a levantar de nuevo con este comando:  
+
+```bash
+docker run -d \
+  --name jenkins-gradle-local \
+  -p 8080:8080 \
+  -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  jenkins-gradle
+```
+
+El resto del proceso para configurar Jenkins es igual que en el ejercicio 1. Seleccionamos `New item` o `Create a job` y lo nombramos como `ejercicio2`. Seleccionamos "Pipeline" y clicamos en "OK".  
 
 En Descripción ponemos `Ejercicio 2 de Jenkins.`  
 En `Pipeline / Definition` escogemos `Pipeline script from SCM`.  
-En "SCM" selecciono "Git".  
+En "`SCM`" selecciono "`Git`".  
 En Repository URL pongo: `https://github.com/vrcastro1975/lemoncode-ci-cd.git`  
 En `Credentials` no pongo nada, porque el repositorio es público.  
 En `"Branch Specifier"` pongo: `*/main`  
