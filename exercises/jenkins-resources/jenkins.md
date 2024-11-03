@@ -60,17 +60,13 @@ Y en `Script Path` pongo: `exercises/jenkins-resources/Exercise1-Jenkinsfile`
 Por último, clico en `"Save"`  
 Ahora clico en `"Build Now"`  
 
-Y, si todo ha ido bien, obtendríamos el output que dejo en el repositorio (`#1.txt`).  
+Y, si todo ha ido bien, obtendríamos el output que dejo en el repositorio (`#Exercise1.txt`).  
   
 ## Segundo ejercicio:  
 Para el segundo ejercicio. modificaremos la pipeline para que utilice la imagen Docker de Gradle como build runner. Tal y como exije el enunciado, usaremos Docker in Docker a la hora de levantar Jenkins, instalaremos los plugins "Docker" y "Docker Pipeline" (ya están instalados del ejercicio anterior) y usaremos la imagen de Docker "gradle:6.6.1-jre14-openj9". En definitiva, vamos a usar un contenedor de Docker específico de Gradle para la compilación y ejecución de pruebas.  
 
 Cambiaremos la configuración del agente para especificar la imagen Docker gradle:6.6.1-jre14-openj9 para que Jenkins ejecute las etapas de compilación y pruebas dentro de un contenedor Docker en lugar de hacerlo directamente en el sistema host donde Jenkins se está ejecutando.  
-Además, tendremos que asegurarnos de que Jenkins tiene permisos para usar Docker, ya que Docker in Docker necesita acceso adecuado a Docker en el host. Para ello, tendremos que meter el usuario "jenkins" dentro del grupo "Docker" para que pueda usar Docker sin `sudo`:  
-```bash
-sudo usermod -aG docker jenkins
-```  
-Luego hay que reiniciar Jenkins para que estos cambios surtan efecto.  
+En esta ocasión, tendremos que instalar Docker en el contenedor de Jenkins, ya que no viene por defecto.
 
 Una vez modificada la pipeline (realmente hemos creado un nuevo Jenkinsfile y le hemos llamado `Exercise2-Jenkinsfile`) vamos a borrar el contenedor de Jenkins y lo vamos a levantar de nuevo con este comando:  
 
@@ -82,7 +78,44 @@ docker run -d \
   -v jenkins_home:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   jenkins-gradle
+```  
+
+Y ahora instalaremos Docker en el contenedore de Jenkins. Para ello, nos vamos a la consola y escribimos:  
+
+```bash
+docker exec -it jenkins-gradle-local bash
+```  
+
+Una vez dentro del contenedor de Jenkins, instalaremos Docker:  
+
+```bash
+apt-get update
+apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+apt-get update
+apt-get install -y docker-ce
+``` 
+
+Probamos si Docker se ha instalado bien:  
+```bash
+docker --version
 ```
+
+Ahora añadiremos al usuario jenkins al grupo Docker para no tener que usar sudo:  
+
+```bash
+usermod -aG docker jenkins
+```
+
+Y reiniciamos el contenedor de Jenkins para que se apliquen los cambios:  
+
+```bash
+docker restart jenkins-gradle-local
+```  
+
+
+
 
 El resto del proceso para configurar Jenkins es igual que en el ejercicio 1. Seleccionamos `New item` o `Create a job` y lo nombramos como `ejercicio2`. Seleccionamos "Pipeline" y clicamos en "OK".  
 
