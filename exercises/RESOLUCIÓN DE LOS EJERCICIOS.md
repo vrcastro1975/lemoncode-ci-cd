@@ -9,3 +9,7 @@ Los ejercicios de Jenkins están resueltos en el directorio **exercises/jenkins-
 - gradle.Dockerfile: Dockerfile para la construcción de la imagen de Jenkins (*TIENE UN FALLO*).  
 - gradle.Dockerfile: Dockerfile modificado para la construcción exitosa de la imagen de Jenkins.  
 - Jenkins.md: Fichero donde voy explicando **paso a paso** la actividad de Jenkins.
+
+## GITLAB
+Los ejercicios de GitLab están resueltos en el directorio **exercises/gitlab**  
+gitlab.md: 
