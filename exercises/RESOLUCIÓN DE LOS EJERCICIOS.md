@@ -12,4 +12,5 @@ Los ejercicios de Jenkins están resueltos en el directorio **exercises/jenkins-
 
 ## GITLAB
 Los ejercicios de GitLab están resueltos en el directorio **exercises/gitlab**  
-gitlab.md: 
+gitlab.md: Explicación de los ejercicios de GitLab.
+springapp/: Carpeta de trabajo (incluye fichero .gitlab-ci.yml).

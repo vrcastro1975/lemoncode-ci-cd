@@ -1,0 +1,42 @@
+stages:
+  - maven:build
+  - maven:test
+  - docker:build
+  - deploy
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+maven:build:
+  image: maven:3.6.3-jdk-8
+  stage: maven:build
+  script:
+    - java -version
+    - mvn clean package
+  artifacts:
+    paths:
+      - target/*.jar
+
+maven:test:
+  image: maven:3.6.3-jdk-8
+  stage: maven:test
+  script:
+    - mvn verify
+
+docker:build:
+  image: docker:latest
+  stage: docker:build
+  script:
+    - docker build -t springapp:latest .
+  only:
+    - main
+
+deploy:
+  image: docker:latest
+  stage: deploy
+  services:
+    - docker:dind
+  script:
+    - docker run -d -p 8080:8080 springapp:latest
+  only:
+    - main
