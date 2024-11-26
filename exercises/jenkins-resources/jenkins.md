@@ -126,6 +126,6 @@ Y en `Script Path` pongo: `exercises/jenkins-resources/Exercise2-Jenkinsfile`
 Por último, clico en `"Save"`  
 Ahora clico en `"Build Now"`  
 
-Y, si todo ha ido bien, obtendríamos el output que dejo en el repositorio (`#2.txt`).  
+Y, si todo ha ido bien, obtendríamos el output que dejo en el repositorio (`#Exercise2.txt`).  
 
 
